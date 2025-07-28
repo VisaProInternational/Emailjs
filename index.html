@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Responsive Contact Form</title>
+  <style>
+    /* تنظیمات پایه و فونت */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      background: white;
+      padding: 25px;
+      margin: 0 auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    label {
+      flex-basis: 100%;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+
+    /* دو ستون برای نام کوچک و نام خانوادگی */
+    .half-width {
+      flex: 1 1 48%;
+    }
+
+    textarea {
+      min-height: 100px;
+    }
+
+    button {
+      flex-basis: 100%;
+      padding: 12px;
+      background-color: #007BFF;
+      border: none;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* ریسپانسیو برای موبایل */
+    @media (max-width: 480px) {
+      .half-width {
+        flex-basis: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Contact Form</h2>
+    <form id="contact-form" action="#" method="POST">
+      <div class="half-width">
+        <label for="first-name">First Name</label>
+        <input type="text" id="first-name" name="firstName" placeholder="Your first name" required />
+      </div>
+      <div class="half-width">
+        <label for="last-name">Last Name</label>
+        <input type="text" id="last-name" name="lastName" placeholder="Your last name" required />
+      </div>
+
+      <div style="flex-basis: 100%;">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="your.email@example.com" required />
+      </div>
+
+      <div style="flex-basis: 100%;">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="+1 123 456 7890" />
+      </div>
+
+      <div style="flex-basis: 100%;">
+        <label for="comments">Comments / Questions?</label>
+        <textarea id="comments" name="comments" placeholder="Write your message here..." required></textarea>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+</html>
