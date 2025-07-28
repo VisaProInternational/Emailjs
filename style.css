@@ -1,79 +1,117 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #eef2f3;
-  color: #333;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-.container {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 30px;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-}
 
-h2 {
-  text-align: center;
-  color: #2c3e50;
-}
-
-p {
-  text-align: center;
-  font-size: 16px;
-  margin-bottom: 30px;
-}
-
-.form-group {
-  margin-bottom: 20px;
+form {
+    width: 50%;
+    margin: 0 auto;
+    font-family: 'Poppins', sans-serif;
+    padding: 3rem;
 }
 
 label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 8px;
+    font-weight: 600;
+    margin-bottom: .5rem;
+    display: block;
+    color: #3e4455;
 }
 
-input, textarea {
-  width: 100%;
-  padding: 12px 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 0.3s ease;
-}
-
-input:focus, textarea:focus {
-  border-color: #3498db;
-  outline: none;
-}
-
-button {
-  background-color: #3498db;
-  color: white;
-  border: none;
-  padding: 14px 30px;
-  border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  display: block;
-  margin: 0 auto;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #2980b9;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .container {
-    padding: 20px;
-  }
-
-  button {
+.input-control {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    padding: 1rem;
     width: 100%;
-  }
 }
+
+.contact-msg {
+    height: 150px;
+    line-height: 1.2;
+    padding: 20px 30px;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    resize: none;
+}
+
+.input-control:focus-visible,
+.contact-msg:focus-visible {
+    outline: none;
+}
+
+.btn-submit {
+    margin-top: 20px;
+    width: 100%;
+    padding: 15px 30px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    background-color: #ff5252;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+}
+
+/* Message after form submission */
+
+.loader {
+    width: 100%;
+    padding: 10px;
+    background-color: #3d4145;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: 600;
+    display: none;
+}
+
+.loader.show {
+  display: block;
+}
+
+
+.loader i {
+    color: #fff;
+    animation: rotateme .4s linear infinite;
+}
+
+/* Loader Animation */
+
+@keyframes rotateme {
+
+    0%{
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.form-message {
+    display: none;
+    width: 100%;
+    background-color: #3d4145;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.form-message.show {
+    display: block;
+}
+
+.success-msg {
+    color: green;
+    line-height: 3;
+}
+
+.error-msg {
+    color: red;
+    line-height: 3;
+}
+
