@@ -1,62 +1,79 @@
-(function () {
-  emailjs.init({ publicKey: "LpjT6PFXqnLEJni6E" }); // جایگزین کلید خود کنید
-})();
-
-const googleSheetWebhookURL = "https://script.google.com/macros/s/AKfycbxkFO4k5Gz6hBRnpsEaPb-bKsS7_Rd6kSl6EZ2zx-9KICNrNHgADnOu0FphfMfl2ikq/exec";
-
-const msg = document.querySelector(".form-message");
-const loader = document.querySelector(".loader");
-
-paypal.HostedButtons({
-  hostedButtonId: "8QMJ5AYWQ8UC6", // جایگزین دکمه PayPal خود کنید
-}).render("#paypal-container-8QMJ5AYWQ8UC6");
-
-// بعد از پرداخت موفق، دکمه Submit را نشان بده
-window.addEventListener("message", function (event) {
-  if (event.origin.includes("paypal.com")) {
-    if (event.data && event.data.event === "hostedButtonPaymentAuthorized") {
-      document.getElementById("submit-wrapper").style.display = "block";
-      document.getElementById("paypal-container-8QMJ5AYWQ8UC6").style.display = "none";
-    }
-  }
+// Pages
+document.querySelectorAll(".logo").forEach((logo) => {
+  logo.addEventListener("click", () => {
+    document.querySelector(".front-page").style.display = "block";
+    document.querySelector(".login-page").style.display = "none";
+    document.querySelector(".signup-page").style.display = "none";
+  });
 });
 
-window.onload = function () {
-  document.getElementById("contact-form").addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    loader.classList.add("show");
-    msg.innerHTML = "";
-    msg.classList.remove("show");
-
-    const form = this;
-
-    emailjs.sendForm("service_4yvzeq8", "template_px597ka", form).then(
-      function () {
-        const formData = new FormData(form);
-        const formDataObj = Object.fromEntries(formData.entries());
-
-        fetch(googleSheetWebhookURL, {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(formDataObj),
-        })
-          .then((res) => res.json())
-          .then((data) => console.log("Saved to Google Sheet:", data))
-          .catch((error) => console.error("Sheet Error:", error));
-
-        loader.classList.remove("show");
-        msg.innerHTML = "<span class='success-msg'>Email Sent and Data Saved!</span>";
-        msg.classList.add("show");
-        form.reset();
-        setTimeout(() => msg.classList.remove("show"), 3000);
-      },
-      function (error) {
-        loader.classList.remove("show");
-        msg.innerHTML = "<span class='error-msg'>Email Not Sent</span>";
-        msg.classList.add("show");
-        console.error("EmailJS error:", error);
-      }
-    );
+document.querySelectorAll(".login").forEach((loginBtn) => {
+  loginBtn.addEventListener("click", () => {
+    document.querySelector(".front-page").style.display = "none";
+    document.querySelector(".login-page").style.display = "block";
+    document.querySelector(".signup-page").style.display = "none";
   });
-};
+});
+
+document.querySelectorAll(".signup").forEach((signupBtn) => {
+  signupBtn.addEventListener("click", () => {
+    document.querySelector(".front-page").style.display = "none";
+    document.querySelector(".login-page").style.display = "none";
+    document.querySelector(".signup-page").style.display = "flex";
+  });
+});
+// End of Pages
+
+// Navigation
+const dropdownItems = document.querySelectorAll(".dropdown-hover");
+
+if (window.innerWidth < 1000) {
+  const menuIcon = document.querySelector(".menu");
+  const navbar = document.querySelector(".navbar");
+
+  menuIcon.addEventListener("click", () => {
+    navbar.classList.toggle("change");
+
+    if (!navbar.classList.contains("change")) {
+      document.querySelectorAll(".nav-dropdown").forEach((dropdown) => {
+        dropdown.style.left = "-20rem";
+      });
+    }
+  });
+
+  document.querySelectorAll(".show-dropdown").forEach((link) => {
+    link.addEventListener("click", () => {
+      link.nextElementSibling.style.left = "0";
+    });
+  });
+
+  document.querySelectorAll(".dropdown-heading-link").forEach((headingLink) => {
+    headingLink.addEventListener("click", () => {
+      headingLink.parentElement.parentElement.style.left = "-20rem";
+    });
+  });
+} else {
+  dropdownItems.forEach((dropdownItem) => {
+    dropdownItem.addEventListener("mouseover", () => {
+      dropdownItem.lastElementChild.style.cssText =
+        "opacity: 1; visibility: visible";
+      document.querySelector(".navbar-wrapper").style.background =
+        "linear-gradient(to right, #066399, #2f8fdf, #066399)";
+      dropdownItem.firstElementChild.firstElementChild.style.transform =
+        "rotate(180deg)";
+    });
+    dropdownItem.addEventListener("mouseout", () => {
+      dropdownItem.lastElementChild.style.cssText =
+        "opacity: 0; visibility: hidden";
+      document.querySelector(".navbar-wrapper").style.background = "none";
+      dropdownItem.firstElementChild.firstElementChild.style.transform =
+        "rotate(0)";
+    });
+  });
+}
+
+window.addEventListener("resize", () => {
+  window.location.reload();
+});
+
+// End of Navigation
